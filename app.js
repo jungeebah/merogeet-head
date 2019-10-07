@@ -44,12 +44,16 @@ function google_search(search){
 }
 
 app.get('/', function(req, res) {
-    (async() =>{
-        google_search(req.query.search).then(function(result){
-            res.setHeader('Content-Type', 'text/html');
-            res.send(result)
-        }).catch(console.error);
-    })();
+    if (Object.keys(req.query).length === 0){
+        res.send('Use search key')
+    }else{
+        (async() =>{
+            google_search(req.query.search).then(function(result){
+                res.setHeader('Content-Type', 'text/html');
+                res.send(result)
+            }).catch(console.error);
+        })();
+    }
 });
 
 app.listen(port, function() {
