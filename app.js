@@ -8,6 +8,7 @@ function google_search(search){
     return new Promise(async (resolve, reject) => {
         try{
             const browser = await puppeteer.launch({
+                headless: false,
                 args: ['--no-sandbox', '--disable-setuid-sandbox']
             });
             const page = await browser.newPage();
@@ -31,6 +32,9 @@ function google_search(search){
                     }else if (description.toLowerCase().indexOf('public figure') >= 0){
                         result = links;
                         break;
+                    }else if (description.toLowerCase().indexOf('performing arts') >= 0){
+                        result = links;
+                        break;
                     }
                 }
             }
@@ -48,7 +52,7 @@ app.get('/', function(req, res) {
         res.send('Use search key')
     }else{
         (async() =>{
-            google_search(req.query.search).then(function(result){
+            google_search(req.query.search + " facebook page").then(function(result){
                 res.setHeader('Content-Type', 'text/html');
                 res.send(result)
             }).catch(console.error);
