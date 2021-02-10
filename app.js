@@ -51,7 +51,7 @@ function google_search(search) {
                 for (const p of profile) {
                     link = await p.$eval('a', a => a.href)
                     if (link.toLowerCase().indexOf('instagram') >= 0) {
-                        const instag = { 'insta': link }
+                        const instag = { 'instagram': link }
                         result.push(instag)
                     }
                     else if (link.toLocaleLowerCase().indexOf('facebook') >= 0) {
